@@ -135,6 +135,19 @@
 
     </div>
 
+
+    <strong>text</strong>
+    <strong>text</strong>
+    <strong>text</strong>
+    <strong>text</strong>
+    <strong>text</strong>
+
+    <div style="width: 50px;">text</div>
+    <div style="width: 50px;">text</div>
+    <div style="width: 50px;">text</div>
+    <div style="width: 50px;">text</div>
+    <div style="width: 50px;">text</div>
+
     @if (Model.Message != null)
     {
         <div class="result">
@@ -165,9 +178,18 @@
         });
 
         const data = await response.json();
-        @* console.log(result); *@
+        console.log(data);
         await new Promise(resolve => setTimeout(resolve, 1500));
-        document.querySelector("#result").textContent = data;
+
+        document.querySelector("#result-name").textContent = data.Name;
+        document.querySelector("#result-phone").textContent = data.Phone;
+        document.querySelector("#result-email").textContent = data.Email;
+        document.querySelector("#result-speciality").textContent = data.Speciality;
+        document.querySelector("#result-course").textContent = data.Course;
+        document.querySelector("#result-birthdate").textContent = data.BirthDate;
+        document.querySelector("#result-technologies").textContent = data.Technologies;
+
+        document.querySelector("#result").style.display = "block";
         button.disabled = false;
         button.textContent = "Анкета успешно отправлена";
     })
