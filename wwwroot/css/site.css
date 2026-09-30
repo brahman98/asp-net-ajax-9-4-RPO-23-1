@@ -98,13 +98,28 @@ font-size: 16px;
     color: white;
     font-size: 16px;
     cursor: pointer;
+    margin-bottom: 20px;
 }
 
 .form-button:hover {
     background: #0056b3;
 }
 
-.student-card {
+.clear-button {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #0056b3;
+    border-radius: 10px;
+    background: #ffffff;
+    color: #0056b3;
+    font-size: 16px;
+    cursor: pointer;
+}
+.clear-button:hover {
+    background: #ededed;
+}
+
+#result {
     display: none;
     margin-top: 25px;
     padding: 20px;

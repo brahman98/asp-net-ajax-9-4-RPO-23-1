@@ -85,15 +85,10 @@
         <button class="form-button" type="submit">
             Отправить
         </button>
-
+        <button class="clear-button" type="reset">Очистить</button>
     </form>
 
-    @* <h1>Расширить анкету. Добавить:</h1>
-    <h2>1. Выбор города через select</h2>
-    <h2>2. Выбор основного языка программирования</h2>
-    <h2>3. Формат обучения (очно, заочно, дистанционное)</h2>
-    <h2>4. Инфомация о себе через тег textarea</h2>
-    <h2>5. Дополнить список технологий</h2> *@
+    <div id="status" class="status"></div>
 
     <div id="result" class="student-card">
 
@@ -135,19 +130,6 @@
 
     </div>
 
-
-    <strong>text</strong>
-    <strong>text</strong>
-    <strong>text</strong>
-    <strong>text</strong>
-    <strong>text</strong>
-
-    <div style="width: 50px;">text</div>
-    <div style="width: 50px;">text</div>
-    <div style="width: 50px;">text</div>
-    <div style="width: 50px;">text</div>
-    <div style="width: 50px;">text</div>
-
     @if (Model.Message != null)
     {
         <div class="result">
@@ -163,38 +145,51 @@
 
 <script>
     const form = document.querySelector("form");
+    const button = form.querySelector("button[type='submit']");
+    const status = document.querySelector("#status")
 
     form.addEventListener("submit", async function (event) {
         event.preventDefault();
 
-        const button = form.querySelector("button");
         button.textContent = "Отправка..."
         button.disabled = true;
 
         const formData = new FormData(form);
-        const response = await fetch("", {
-            method: "POST",
-            body: formData
-        });
 
-        const data = await response.json();
-        console.log(data);
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        try {
+            const response = await fetch("", {
+                method: "POST",
+                body: formData
+            });
 
-        document.querySelector("#result-name").textContent = data.Name;
-        document.querySelector("#result-phone").textContent = data.Phone;
-        document.querySelector("#result-email").textContent = data.Email;
-        document.querySelector("#result-speciality").textContent = data.Speciality;
-        document.querySelector("#result-course").textContent = data.Course;
-        document.querySelector("#result-birthdate").textContent = data.BirthDate;
-        document.querySelector("#result-technologies").textContent = data.Technologies;
+            if (!response.ok) {
+                throw new Error("Ошибка сервера");
+            }
 
-        document.querySelector("#result").style.display = "block";
-        button.disabled = false;
-        button.textContent = "Анкета успешно отправлена";
+            const data = await response.json();
+            console.log(data);
+            await new Promise(resolve => setTimeout(resolve, 1500));
+
+            document.querySelector("#result-name").textContent = data.Name;
+            document.querySelector("#result-phone").textContent = data.Phone;
+            document.querySelector("#result-email").textContent = data.Email;
+            document.querySelector("#result-speciality").textContent = data.Speciality;
+            document.querySelector("#result-course").textContent = data.Course;
+            document.querySelector("#result-birthdate").textContent = data.BirthDate;
+            document.querySelector("#result-technologies").textContent = data.Technologies;
+
+            document.querySelector("#result").style.display = "block";
+            status.textContent = "Анкета успешно отправлена";
+        } catch (error) {
+            status.textContent = "Не удалось отправить анкету";
+        } finally {
+            button.disabled = false;
+            button.textContent = "Отправить";
+        }
+    });
+
+    form.addEventListener("reset", function () {
+        document.querySelector('#result').style.display = 'none';
+        document.querySelector('#status').textContent = '';
     })
 </script>
-
-dotnet --version
-
-winget install Microsoft.DotNet.SDK.10
