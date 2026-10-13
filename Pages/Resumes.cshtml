@@ -1,0 +1,26 @@
+@page
+@model ResumesModel
+
+<div class="resumes-page">
+    <div class="resumes-heading">
+        <div>
+            <p class="home-label">
+                COLLEGEJOB
+            </p>
+            <h1>Каталог резюме</h1>
+            <p>Знакомься со специалистами
+                и их навыками
+            </p>
+        </div>
+
+        <a class="home-button" asp-page="/CreateResume">
+            Создать резюме
+        </a>
+    </div>
+
+    <p class="resumes-count">
+        Всего резюме:
+        @Model.Students.Count
+    </p>
+
+</div>
