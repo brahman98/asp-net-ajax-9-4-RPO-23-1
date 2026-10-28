@@ -46,6 +46,10 @@
                 <p>Навыки не указаны</p>
             }
         </section>
-        <a class="home-button" asp-page="/Resumes">Вернуться к каталогу резюме</a>
+        <div class="resume-detail-actions">
+            <a class="home-button" asp-page="/EditResume" 
+            asp-route-id="@Model.Resume.Id">Редактировать резюме</a>
+            <a class="home-button" asp-page="/Resumes">Вернуться в каталог</a>
+        </div>
     </article>
 </div>
